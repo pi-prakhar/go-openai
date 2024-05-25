@@ -1,0 +1,9 @@
+{
+    "service-name": "GO-OPENAI",
+    "log-level":"debug",
+    "test-port":"8000",
+    "test-hostname":"localhost",
+    "docker-port":"8000",
+    "docker-hostname":""
+
+}
