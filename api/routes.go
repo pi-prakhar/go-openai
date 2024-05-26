@@ -10,5 +10,7 @@ func Router() *http.ServeMux {
 		w.Write([]byte("Hello world"))
 	})
 	mux.HandleFunc("/test/api", HandleOpenAITest)
+	mux.HandleFunc("/api/chat/send", HandleSendChatMessage)
+	mux.HandleFunc("/api/chat/messages", HandleGetMessages)
 	return mux
 }

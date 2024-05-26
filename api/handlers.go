@@ -2,11 +2,14 @@ package api
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
 
+	"github.com/go-playground/validator/v10"
 	"github.com/pi-prakhar/go-openai/internal/models"
+	"github.com/pi-prakhar/go-openai/internal/services"
 	"github.com/pi-prakhar/go-openai/pkg/logger"
 	"github.com/pi-prakhar/go-openai/pkg/utils"
 )
@@ -64,4 +67,61 @@ func HandleOpenAITest(w http.ResponseWriter, r *http.Request) {
 		logger.Log.Debug("Error : Failed to write response")
 		return
 	}
+}
+
+func HandleSendChatMessage(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
+	var body models.Request
+	var response models.Responder
+	err := json.NewDecoder(r.Body).Decode(&body)
+	if err != nil {
+		response = models.ErrorResponse{
+			StatusCode:   http.StatusBadRequest,
+			ErrorMessage: err.Error(),
+		}
+		response.WriteJSON(w, http.StatusBadRequest)
+		return
+	}
+	// Validate the struct
+	validate := validator.New()
+	err = validate.Struct(body)
+	if err != nil {
+		response = models.ErrorResponse{
+			StatusCode:   http.StatusBadRequest,
+			ErrorMessage: err.Error(),
+		}
+		response.WriteJSON(w, http.StatusBadRequest)
+		return
+	}
+
+	res, err := services.SendMessage(body.Message)
+	if err != nil {
+		response = models.ErrorResponse{
+			StatusCode:   http.StatusInternalServerError,
+			ErrorMessage: err.Error(),
+		}
+		response.WriteJSON(w, http.StatusInternalServerError)
+		return
+	}
+
+	response = models.SuccessResponse[models.ChatResponse]{
+		StatusCode: http.StatusOK,
+		Message:    "Successfully send message",
+		Data:       *res,
+	}
+
+	response.WriteJSON(w, http.StatusOK)
+
+}
+
+func HandleGetMessages(w http.ResponseWriter, r *http.Request) {
+	var response models.Responder
+	messages := services.GetMessages()
+	response = models.SuccessResponse[[]models.ChatMessage]{
+		StatusCode: http.StatusOK,
+		Message:    "Successfully fetched all messages",
+		Data:       *messages,
+	}
+
+	response.WriteJSON(w, http.StatusOK)
 }
