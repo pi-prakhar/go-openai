@@ -9,6 +9,6 @@ func Router() *http.ServeMux {
 	mux.HandleFunc("/hello-world", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Hello world"))
 	})
-	mux.HandleFunc("/test/openai", HandleOpenAITest)
+	mux.HandleFunc("/test/api", HandleOpenAITest)
 	return mux
 }

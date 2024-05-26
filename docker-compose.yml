@@ -1,0 +1,8 @@
+version: '3.8'
+
+services:
+  pi-go-openai-backend:
+    container_name: go-openai-backend
+    build: .
+    ports:
+      - "8000:8000"
