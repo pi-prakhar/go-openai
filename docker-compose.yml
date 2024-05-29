@@ -6,6 +6,6 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile
-    image: DOCKERHUB_USERNAME/go-openai:latest
+    image: username/go-openai:latest
     ports:
       - "8000:8000"
