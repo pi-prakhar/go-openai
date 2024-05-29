@@ -25,15 +25,16 @@ jobs:
       - name: Build Docker image
         run: |
           IMAGE_TAG="${{ secrets.DOCKERHUB_USERNAME }}/go-openai:latest"
-          docker-compose build --build-arg IMAGE_TAG=$IMAGE_TAG
+          echo "IMAGE_TAG=${IMAGE_TAG}" >> $GITHUB_ENV
+          docker-compose build
 
       - name: Tag Docker image
         run: |
-          IMAGE_TAG="${{ secrets.DOCKERHUB_USERNAME }}/go-openai:latest"
-          docker tag go-openai:latest $IMAGE_TAG
+          IMAGE_TAG="${{ env.IMAGE_TAG }}"
+          docker tag go-openai_app:latest $IMAGE_TAG
 
       - name: Push Docker image
         run: |
-          IMAGE_TAG="${{ secrets.DOCKERHUB_USERNAME }}/go-openai:latest"
+          IMAGE_TAG="${{ env.IMAGE_TAG }}"
           docker push $IMAGE_TAG
 
