@@ -22,11 +22,11 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      - name: Set image tag in docker-compose.yml
+        run: sed -i 's|DOCKER_USERNAME/go-openai:latest|${{ secrets.DOCKER_USERNAME }}/go-openai:latest|' docker-compose.yml
+
       - name: Build and push Docker image
         id: build-and-push
-        env: 
-          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY}}
         run: |
           docker-compose -f docker-compose.yml build
           docker-compose -f docker-compose.yml push
