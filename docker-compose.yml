@@ -6,7 +6,7 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile
-    image: pi-prakhar/go-openai:latest
+    image: ${DOCKERHUB_USERNAME}/go-openai:latest
     ports:
       - "8000:8000"
     environment:
