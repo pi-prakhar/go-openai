@@ -6,18 +6,14 @@ import (
 
 	"github.com/pi-prakhar/go-openai/api"
 	"github.com/pi-prakhar/go-openai/pkg/logger"
-	"github.com/pi-prakhar/utils/loader"
+	"github.com/pi-prakhar/go-openai/pkg/utils"
 	"github.com/rs/cors"
 )
 
 func init() {
 	logger.InitLogger()
 	logger.Log.Info("Logger started")
-
-	err := loader.LoadEnv()
-	if err != nil {
-		logger.Log.Error("Failed to load env", err)
-	}
+	utils.Loadenv()
 }
 
 func main() {

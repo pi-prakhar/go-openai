@@ -4,6 +4,7 @@
     "test-port":"8000",
     "test-hostname":"localhost",
     "docker-port":"8000",
-    "docker-hostname":""
+    "docker-hostname":"",
+    "production":"true"
 
 }

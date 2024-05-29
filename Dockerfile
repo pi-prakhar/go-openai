@@ -13,6 +13,10 @@ RUN go mod download
 # Copy the rest of the application code to the container
 COPY . .
 
+#env configuration
+ARG OPENAI_API_KEY
+ENV OPENAI_API_KEY=$OPENAI_API_KEY
+
 # Build the Go application
 RUN go build -o main ./cmd/go-openai
 

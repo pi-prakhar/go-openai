@@ -12,3 +12,25 @@ func FetchOpenAIAPIKey() string {
 	}
 	return openaiKey
 }
+
+func IsProduction() bool {
+	isProduction, err := loader.GetValueFromConf("production")
+	if err != nil {
+		logger.Log.Error("Failed to load key production from config files", err)
+		return false
+	}
+	if isProduction == "true" {
+		return true
+	}
+	return false
+}
+
+func Loadenv() {
+	if !IsProduction() {
+		err := loader.LoadEnv()
+		if err != nil {
+			logger.Log.Error("Failed to load env", err)
+		}
+		logger.Log.Info("Succesfully loaded local .env")
+	}
+}
