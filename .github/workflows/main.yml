@@ -27,11 +27,6 @@ jobs:
           IMAGE_TAG="${{ secrets.DOCKER_USERNAME }}/go-openai:latest"
           docker-compose build --build-arg IMAGE_TAG=$IMAGE_TAG
 
-      - name: Tag Docker image
-        run: |
-          IMAGE_TAG="${{ secrets.DOCKER_USERNAME }}/go-openai:latest"
-          docker tag go-openai:latest $IMAGE_TAG
-
       - name: Push Docker image
         run: |
           IMAGE_TAG="${{ secrets.DOCKER_USERNAME }}/go-openai:latest"
