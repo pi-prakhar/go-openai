@@ -3,6 +3,11 @@ version: '3.8'
 services:
   pi-go-openai-backend:
     container_name: go-openai-backend
-    build: .
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    image: pi-prakhar/go-openai:latest
     ports:
       - "8000:8000"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
