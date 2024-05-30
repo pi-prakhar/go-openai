@@ -1,0 +1,8 @@
+version: '3.8'
+
+services:
+  pi-go-openai-backend:
+    env_file:
+      - .env
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}

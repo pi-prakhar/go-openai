@@ -1,0 +1,7 @@
+version: '3.8'
+
+services:
+  pi-go-openai-backend:
+    image: ${DOCKERHUB_USERNAME}/go-openai:latest
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}

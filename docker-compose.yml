@@ -3,11 +3,10 @@ version: '3.8'
 services:
   pi-go-openai-backend:
     container_name: go-openai-backend
-    image: ${IMAGE_TAG}
-    build: 
+    build:
       context: .
       dockerfile: Dockerfile
-      args:
-        - IMAGE_TAG
     ports:
       - "8000:8000"
+    environment:
+      - OPENAI_API_KEY
