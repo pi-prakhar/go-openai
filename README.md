@@ -7,12 +7,7 @@ This Go project empowers you to interact with an AI assistant in a chat thread f
 
 ##  Installation
 
-**Prerequisites:**
 
-- Ensure you have Git and Golang installed on your system.
-- Replace `OPENAI_API_KEY` with your actual OpenAI API key in the project's configuration file (refer to OpenAI documentation for obtaining an API key).
-- Consider using a `.env` file to securely store sensitive information like your API key, preventing accidental exposure in version control.
-- You can customize the chat experience by configuring the OpenAI model used for chat completion and other parameters available in the OpenAI API.
 
 **Steps:**
 
@@ -28,14 +23,31 @@ This Go project empowers you to interact with an AI assistant in a chat thread f
 
 **Running the Project**
 
-**A. Using Docker**
+**A. Using Docker Image**
+  
+   ```bash
+   docker pull 16181181418/go-openai:latest
+   docker run -d -p 8000:8000 -e "OPENAI_API_KEY={YOUR_KEY}" 16181181418/go-openai:latest 
+   ```
+
+
+**B. Running Locally**
+
+**Prerequisites:**
+
+- Ensure you have Git and Golang installed on your system.
+- Replace `OPENAI_API_KEY` with your actual OpenAI API key in the project's configuration file (refer to OpenAI documentation for obtaining an API key).
+- Consider using a `.env` file to securely store sensitive information like your API key, preventing accidental exposure in version control.
+- You can customize the chat experience by configuring the OpenAI model used for chat completion and other parameters available in the OpenAI API.
+
+*1. Using Docker*
 
 1. Build and start the application in detached mode:
    ```bash
    docker-compose up --build -d
    ```
 
-**B. Running Locally (Windows)**
+*2. Without Docker*
 
 1. Build the executable:
    ```bash
